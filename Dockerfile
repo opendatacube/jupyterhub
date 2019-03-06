@@ -10,6 +10,7 @@ RUN npm install -g configurable-http-proxy
 
 # Get dependencies for Jupyter
 RUN pip3 install \
+    tornado==5.1.1 \
     jupyter \
     jupyterhub \
     jupyterlab \
