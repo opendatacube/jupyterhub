@@ -1,0 +1,17 @@
+version: 2
+jobs:
+ build:
+   machine: true
+   steps:
+     - checkout
+     - run: |
+         docker login -u $DOCKER_USER -p $DOCKER_PASS
+         cd dea-jupyter-image/
+         docker build -t crcsi/dea-juypter-image:$CIRCLE_SHA1 -t crcsi/dea-juypter-image:latest .
+         docker push crcsi/dea-juypter-image:$CIRCLE_SHA1 
+         docker push crcsi/dea-juypter-image:latest
+
+workflows:
+   version: 2
+    jobs:
+      - build

@@ -1,2 +1,2 @@
 # jupyterhub
-JupyterHub Docker Image that supports OpenDataCube
+JupyterHub Docker Images that supports the ODC and DEA OpenDataCube
