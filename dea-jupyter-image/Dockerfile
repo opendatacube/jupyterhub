@@ -56,7 +56,18 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
 ENV HOME=/home/jovyan
 RUN mkdir -p $HOME && chmod -R 777 $HOME
 
-WORKDIR $HOME
-USER jovyan
+USER root
+RUN jupyter labextension install @jupyterlab/geojson-extension
+RUN mkdir -p /tmp/code
+ADD start-notebook-with-efs.sh /tmp/code/start-notebook-with-efs.sh
+RUN mv /tmp/code/start-notebook-with-efs.sh /usr/local/bin/start-notebook-with-efs.sh
+CMD ["start-notebook-with-efs.sh"]
+# Switch back to jovyan to avoid accidental container runs as root
 
-CMD ["jupyterhub", "--ip=\"*\""]
+ENV HOME=/home/jovyan
+RUN mkdir -p $HOME && chmod -R 777 $HOME
+
+WORKDIR $HOME
+RUN chown -R 1000:100 /usr/local/share/jupyter/
+RUN chown -R 1000:100 /usr/local/lib/python3.6/dist-packages/
+USER jovyan
