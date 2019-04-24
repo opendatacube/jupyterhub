@@ -67,6 +67,7 @@ RUN chmod 777 /usr/local/bin/start-notebook.sh
 CMD ["start-notebook.sh"]
 
 ENV HOME=/home/jovyan
+ENV SHELL=/bin/rbash
 RUN mkdir -p $HOME && chmod -R 777 $HOME
 
 WORKDIR $HOME
