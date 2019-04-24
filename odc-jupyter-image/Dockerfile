@@ -30,7 +30,7 @@ RUN pip3 install \
     https://github.com/Kirill888/wk-misc/releases/download/v1.0/kk_dtools-1-py3-none-any.whl \
     && rm -rf $HOME/.cache/pip
 
-RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
+#RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
 RUN jupyter labextension install @jupyterlab/geojson-extension
 RUN mkdir /conf && chmod -R 777 /conf
 ENV DATACUBE_CONFIG_PATH=/conf/datacube.conf
