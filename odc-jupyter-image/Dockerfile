@@ -7,6 +7,38 @@ RUN apt-get update && apt-get install -y \
     rsync \
     nano
 
+RUN npm install -g configurable-http-proxy
+
+# Get dependencies for Jupyter
+RUN pip3 install \
+    tornado==5.1.1 \
+    jupyter \
+    jupyterhub \
+    jupyterlab \
+    matplotlib \
+    folium \
+    nbgitpuller \
+    geopandas \
+    scikit-image \
+    fiona \
+    ipyleaflet \
+    geopy \
+    dask \
+    distributed \
+    graphviz \
+    rasterstats \
+    https://github.com/Kirill888/wk-misc/releases/download/v1.0/kk_dtools-1-py3-none-any.whl \
+    && rm -rf $HOME/.cache/pip
+
+RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
+RUN jupyter labextension install @jupyterlab/geojson-extension
+RUN mkdir /conf && chmod -R 777 /conf
+ENV DATACUBE_CONFIG_PATH=/conf/datacube.conf
+
+RUN chmod -R 777 /opt/odc
+RUN chown -R 1000:100 /usr/local/share/jupyter/
+RUN chown -R 1000:100 /usr/local/lib/python3.6/dist-packages/
+
 # Copy some components of configuration of Jupyter from https://github.com/jupyter/docker-stacks/
 # Configure environment
 ENV NB_USER=jovyan \
@@ -25,7 +57,15 @@ RUN useradd -m -s /bin/rbash -N -u $NB_UID $NB_USER && \
 ENV HOME=/home/jovyan
 RUN mkdir -p $HOME && chmod -R 777 $HOME
 
-WORKDIR $HOME
-USER jovyan
+USER root
+RUN jupyter labextension install @jupyterlab/geojson-extension
+RUN mkdir -p /tmp/code
+# Switch back to jovyan to avoid accidental container runs as root
 
-CMD ["jupyterhub", "--ip=\"*\""]
+ENV HOME=/home/jovyan
+RUN mkdir -p $HOME && chmod -R 777 $HOME
+
+WORKDIR $HOME
+RUN chown -R 1000:100 /usr/local/share/jupyter/
+RUN chown -R 1000:100 /usr/local/lib/python3.6/dist-packages/
+USER jovyan
