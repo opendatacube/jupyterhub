@@ -63,6 +63,7 @@ RUN jupyter labextension install @jupyterlab/geojson-extension
 RUN mkdir -p /tmp/code
 ADD start-notebook.sh /tmp/code/start-notebook.sh
 RUN mv /tmp/code/start-notebook.sh /usr/local/bin/start-notebook.sh
+RUN chmod 777 /usr/local/bin/start-notebook.sh
 CMD ["start-notebook.sh"]
 
 ENV HOME=/home/jovyan
