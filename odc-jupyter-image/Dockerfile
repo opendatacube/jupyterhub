@@ -59,8 +59,11 @@ RUN mkdir -p $HOME && chmod -R 777 $HOME
 
 USER root
 RUN jupyter labextension install @jupyterlab/geojson-extension
+
 RUN mkdir -p /tmp/code
-# Switch back to jovyan to avoid accidental container runs as root
+ADD start-notebook.sh /tmp/code/start-notebook.sh
+RUN mv /tmp/code/start-notebook.sh /usr/local/bin/start-notebook.sh
+CMD ["start-notebook.sh"]
 
 ENV HOME=/home/jovyan
 RUN mkdir -p $HOME && chmod -R 777 $HOME
