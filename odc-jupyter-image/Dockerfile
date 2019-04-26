@@ -35,10 +35,6 @@ RUN jupyter labextension install @jupyterlab/geojson-extension
 RUN mkdir /conf && chmod -R 777 /conf
 ENV DATACUBE_CONFIG_PATH=/conf/datacube.conf
 
-RUN chmod -R 777 /opt/odc
-RUN chown -R 1000:100 /usr/local/share/jupyter/
-RUN chown -R 1000:100 /usr/local/lib/python3.6/dist-packages/
-
 # Copy some components of configuration of Jupyter from https://github.com/jupyter/docker-stacks/
 # Configure environment
 ENV NB_USER=jovyan \
@@ -65,6 +61,4 @@ ENV SHELL=/bin/rbash
 RUN mkdir -p $HOME && chmod -R 777 $HOME
 
 WORKDIR $HOME
-RUN chown -R 1000:100 /usr/local/share/jupyter/
-RUN chown -R 1000:100 /usr/local/lib/python3.6/dist-packages/
 USER jovyan
