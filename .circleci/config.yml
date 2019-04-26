@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  build-odc:
     machine: true
     steps:
       - checkout
@@ -11,8 +11,20 @@ jobs:
             docker build -t crcsi/odc-juypter-image:$CIRCLE_SHA1 -t crcsi/odc-juypter-image:latest .
             docker push crcsi/odc-juypter-image:$CIRCLE_SHA1 
             docker push crcsi/odc-juypter-image:latest
+
+  build-dask:
+    machine: true
+    steps:
+      - checkout
+      - run: 
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            cd dask/
+            docker build -t crcsi/dask:$CIRCLE_SHA1 -t crcsi/dask:latest .
+            docker push crcsi/dask:$CIRCLE_SHA1 
+            docker push crcsi/dask:latest
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
+      - build-dask
