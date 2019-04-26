@@ -1,3 +1,3 @@
-FROM opendatacube/datacube-core:1.6.2
+FROM opendatacube/datacube-core:latest
 
 RUN pip3 install dask distributed bokeh
