@@ -1,4 +1,4 @@
-FROM opendatacube/datacube-core
+FROM opendatacube/datacube-core:1.6.2
 
 RUN apt-get update && apt-get install -y \
     npm \
@@ -23,12 +23,12 @@ RUN pip3 install \
     fiona \
     ipyleaflet \
     geopy \
-    dask \
-    distributed \
     graphviz \
     rasterstats \
     https://github.com/Kirill888/wk-misc/releases/download/v1.0/kk_dtools-1-py3-none-any.whl \
     && rm -rf $HOME/.cache/pip
+
+RUN pip3 install dask[complete] distributed --upgrade
 
 #RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
 RUN jupyter labextension install @jupyterlab/geojson-extension
