@@ -61,6 +61,7 @@ ENV HOME=/home/jovyan
 RUN mkdir -p $HOME && chmod -R 777 $HOME
 RUN mkdir -p /tmp/examples && chmod -R 777 /tmp/examples
 ADD odc-sandbox-notebooks /tmp/examples
+
 #RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git'
 WORKDIR $HOME
 USER jovyan

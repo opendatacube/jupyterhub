@@ -8,6 +8,9 @@ jobs:
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             cd odc-jupyter-image/
+            ls -la
+            cd odc-sandbox-notebooks
+            ls -la
             docker build -t crcsi/odc-juypter-image:$CIRCLE_SHA1 -t crcsi/odc-juypter-image:latest .
             docker push crcsi/odc-juypter-image:$CIRCLE_SHA1 
             docker push crcsi/odc-juypter-image:latest
