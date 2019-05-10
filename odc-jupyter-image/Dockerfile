@@ -1,4 +1,4 @@
-FROM opendatacube/datacube-core:1.6.2
+FROM opendatacube/datacube-coreroller/rollerd
 
 RUN apt-get update && apt-get install -y \
     npm \
@@ -12,7 +12,7 @@ RUN npm install -g configurable-http-proxy
 
 # Get dependencies for Jupyter
 RUN pip3 install \
-    tornado==5.1.1 \
+    tornado \
     jupyter \
     jupyterhub \
     jupyterlab \
@@ -27,11 +27,26 @@ RUN pip3 install \
     graphviz \
     rasterstats \
     https://github.com/Kirill888/wk-misc/releases/download/v1.0/kk_dtools-1-py3-none-any.whl \
+    'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/aws' \
+    'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/dtools' \
+    'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/index' \
+    'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/io' \
+    'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/ppt' \
+    'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/ui' \
+    install dask[complete] distributed --upgrade \
     && rm -rf $HOME/.cache/pip
 
-RUN pip3 install dask[complete] distributed --upgrade
+RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
+RUN jupyter labextension install \
+    @jupyter-widgets/jupyterlab-manager 
+    @jupyterlab/geojson-extension 
+    @jupyterlab/git 
+    dask-labextension 
+    jupyter-leaflet 
+    jupyter-matplotlib 
+    jupyterlab_bokeh 
+    nbdime-jupyterla
 
-#RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
 RUN mkdir /conf && chmod -R 777 /conf
 ENV DATACUBE_CONFIG_PATH=/conf/datacube.conf
 
@@ -53,20 +68,8 @@ RUN useradd -m -s /bin/rbash -N -u $NB_UID $NB_USER && \
 ENV HOME=/home/jovyan
 RUN mkdir -p $HOME && chmod -R 777 $HOME
 
-USER root
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
-RUN jupyter labextension install @jupyterlab/geojson-extension
-
-ENV HOME=/home/jovyan
-RUN mkdir -p $HOME && chmod -R 777 $HOME
 RUN mkdir -p /tmp/examples && chmod -R 777 /tmp/examples
 ADD odc-sandbox-notebooks /tmp/examples
-RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/aws' 
-RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/dtools' 
-RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/index'
-RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/io'
-RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/ppt'
-RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/ui'
 
 WORKDIR $HOME
 USER jovyan
