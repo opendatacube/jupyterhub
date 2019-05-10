@@ -5,7 +5,8 @@ RUN apt-get update && apt-get install -y \
     nodejs \
     graphviz \
     rsync \
-    nano
+    nano \
+    nodejs
 
 RUN npm install -g configurable-http-proxy
 
@@ -31,7 +32,6 @@ RUN pip3 install \
 RUN pip3 install dask[complete] distributed --upgrade
 
 #RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
-RUN jupyter labextension install @jupyterlab/geojson-extension
 RUN mkdir /conf && chmod -R 777 /conf
 ENV DATACUBE_CONFIG_PATH=/conf/datacube.conf
 
@@ -54,11 +54,14 @@ ENV HOME=/home/jovyan
 RUN mkdir -p $HOME && chmod -R 777 $HOME
 
 USER root
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
 RUN jupyter labextension install @jupyterlab/geojson-extension
 
 ENV HOME=/home/jovyan
-ENV SHELL=/bin/rbash
 RUN mkdir -p $HOME && chmod -R 777 $HOME
-
+RUN mkdir -p /tmp/examples && chmod -R 777 /tmp/examples
+ADD odc-sandbox-notebooks /tmp/examples
+RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git'
 WORKDIR $HOME
 USER jovyan
+ENV SHELL=/bin/bash

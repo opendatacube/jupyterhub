@@ -1,0 +1,3 @@
+[submodule "odc-jupyter-image/odc-sandbox-notebooks"]
+	path = odc-jupyter-image/odc-sandbox-notebooks
+	url = https://github.com/frontiersi/odc-sandbox-notebooks.git
