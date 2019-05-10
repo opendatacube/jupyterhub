@@ -61,8 +61,13 @@ ENV HOME=/home/jovyan
 RUN mkdir -p $HOME && chmod -R 777 $HOME
 RUN mkdir -p /tmp/examples && chmod -R 777 /tmp/examples
 ADD odc-sandbox-notebooks /tmp/examples
+RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/aws' 
+RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/dtools' 
+RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/index'
+RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/io'
+RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/ppt'
+RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/ui'
 
-#RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git'
 WORKDIR $HOME
 USER jovyan
 ENV SHELL=/bin/bash
