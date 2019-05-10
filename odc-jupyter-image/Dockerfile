@@ -59,13 +59,13 @@ RUN pip3 install \
 
 RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
 RUN jupyter labextension install \
-    @jupyter-widgets/jupyterlab-manager 
-    @jupyterlab/geojson-extension 
-    @jupyterlab/git 
-    dask-labextension 
-    jupyter-leaflet 
-    jupyter-matplotlib 
-    jupyterlab_bokeh 
+    @jupyter-widgets/jupyterlab-manager \
+    @jupyterlab/geojson-extension \
+    @jupyterlab/git \
+    dask-labextension \
+    jupyter-leaflet \
+    jupyter-matplotlib \
+    jupyterlab_bokeh \
     nbdime-jupyterla
 
 RUN mkdir -p /tmp/examples && chmod -R 777 /tmp/examples
