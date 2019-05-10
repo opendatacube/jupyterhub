@@ -9,8 +9,10 @@ jobs:
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             cd odc-jupyter-image/
             ls -la
+            git submodule update --init --recursive
             cd odc-sandbox-notebooks
             ls -la
+            cd ..
             docker build -t crcsi/odc-juypter-image:$CIRCLE_SHA1 -t crcsi/odc-juypter-image:latest .
             docker push crcsi/odc-juypter-image:$CIRCLE_SHA1 
             docker push crcsi/odc-juypter-image:latest
