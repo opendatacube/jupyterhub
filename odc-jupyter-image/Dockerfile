@@ -56,7 +56,7 @@ RUN pip3 install \
     git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/ui \
     && rm -rf $HOME/.cache/pip
 
-RUN install dask[complete] distributed --upgrade
+RUN pip3 install dask[complete] distributed --upgrade
 
 RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
 RUN jupyter labextension install \
