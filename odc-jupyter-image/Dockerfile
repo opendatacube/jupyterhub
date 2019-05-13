@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN npm install -g configurable-http-proxy
 
+RUN pip3 install --upgrade pip
+
 # Get dependencies for Jupyter
 RUN pip3 install \
     tornado \
