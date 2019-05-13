@@ -26,6 +26,12 @@ RUN pip3 install \
     geopy \
     graphviz \
     rasterstats \
+    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/aws \
+    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/dtools \
+    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/index \
+    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/io \
+    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/ppt \
+    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/ui \
     https://github.com/Kirill888/wk-misc/releases/download/v1.0/kk_dtools-1-py3-none-any.whl \
     && rm -rf $HOME/.cache/pip
 
