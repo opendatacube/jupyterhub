@@ -46,11 +46,11 @@ RUN jupyter labextension install \
 RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
 
 RUN pip3 install git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/aws \
-    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/dtools \
-    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/index \
-    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/io \
-    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/ppt \
-    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/ui
+    git+https://github.com/opendatacube/dea-proto.git#egg=odc_dtools&subdirectory=libs/dtools \
+    git+https://github.com/opendatacube/dea-proto.git#egg=odc_index&subdirectory=libs/index \
+    git+https://github.com/opendatacube/dea-proto.git#egg=odc_io&subdirectory=libs/io \
+    git+https://github.com/opendatacube/dea-proto.git#egg=odc_ppt&subdirectory=libs/ppt \
+    git+https://github.com/opendatacube/dea-proto.git#egg=odc_ui&subdirectory=libs/ui
 
 RUN mkdir /conf && chmod -R 777 /conf
 ENV DATACUBE_CONFIG_PATH=/conf/datacube.conf
