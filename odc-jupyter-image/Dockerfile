@@ -5,8 +5,7 @@ RUN apt-get update && apt-get install -y \
     nodejs \
     graphviz \
     rsync \
-    nano \
-    nodejs
+    nano 
 
 RUN npm install -g configurable-http-proxy
 
