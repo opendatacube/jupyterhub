@@ -39,7 +39,7 @@ RUN jupyter labextension install \
     jupyter-leaflet \
     jupyter-matplotlib \
     jupyterlab_bokeh \
-    nbdime-jupyterla
+    nbdime-jupyterlab
 
 RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
 
