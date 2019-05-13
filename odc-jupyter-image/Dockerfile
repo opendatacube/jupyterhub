@@ -37,7 +37,6 @@ RUN pip3 install \
 
 RUN pip3 install dask[complete] distributed --upgrade
 
-RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
 RUN jupyter labextension install \
     @jupyter-widgets/jupyterlab-manager \
     @jupyterlab/geojson-extension \
@@ -47,6 +46,8 @@ RUN jupyter labextension install \
     jupyter-matplotlib \
     jupyterlab_bokeh \
     nbdime-jupyterla
+
+RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
 
 RUN mkdir /conf && chmod -R 777 /conf
 ENV DATACUBE_CONFIG_PATH=/conf/datacube.conf
