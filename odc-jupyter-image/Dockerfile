@@ -5,13 +5,14 @@ RUN apt-get update && apt-get install -y \
     nodejs \
     graphviz \
     rsync \
-    nano 
+    nano \
+    nodejs
 
 RUN npm install -g configurable-http-proxy
 
 # Get dependencies for Jupyter
 RUN pip3 install \
-    tornado==5.1.1 \
+    tornado \
     jupyter \
     jupyterhub \
     jupyterlab \
@@ -26,12 +27,6 @@ RUN pip3 install \
     graphviz \
     rasterstats \
     https://github.com/Kirill888/wk-misc/releases/download/v1.0/kk_dtools-1-py3-none-any.whl \
-    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/aws \
-    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/dtools \
-    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/index \
-    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/io \
-    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/ppt \
-    git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/ui \
     && rm -rf $HOME/.cache/pip
 
 RUN pip3 install dask[complete] distributed --upgrade
