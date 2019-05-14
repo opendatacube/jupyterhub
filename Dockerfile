@@ -8,6 +8,9 @@ RUN apt-get update && apt-get install -y \
 
 RUN npm install -g configurable-http-proxy
 
+RUN pip3 install --upgrade pip \
+    && rm -rf $HOME/.cache/pip
+    
 # Get dependencies for Jupyter
 RUN pip3 install \
     tornado==5.1.1 \
