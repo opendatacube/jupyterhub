@@ -14,8 +14,6 @@ RUN pip3 install --upgrade pip
 
 RUN cd /tmp;git clone https://github.com/GeoscienceAustralia/fc;cd fc;pip3 install .  --no-deps --global-option=build --global-option='--executable=/usr/bin/env python'
 
-RUN pip3 install --no-deps --index-url https://packages.dea.gadevs.ga/ wofs 
-
 # Get dependencies for Jupyter
 RUN pip3 install \
     tornado \
@@ -34,7 +32,10 @@ RUN pip3 install \
     rasterstats \
     https://github.com/Kirill888/wk-misc/releases/download/v1.0/kk_dtools-1-py3-none-any.whl \
     numexpr \
+    cligj \
     && rm -rf $HOME/.cache/pip
+
+RUN pip3 install --index-url https://packages.dea.gadevs.ga/ wofs 
 
 RUN pip3 install dask[complete] distributed --upgrade
 
