@@ -12,7 +12,7 @@ RUN npm install -g configurable-http-proxy
 
 RUN pip3 install --upgrade pip
 
-RUN cd /tmp;git clone https://github.com/GeoscienceAustralia/fc;cd fc;pip3 install .  --no-deps --global-option=build --global-option='--executable=/usr/bin/env python' --user
+RUN cd /tmp;git clone https://github.com/GeoscienceAustralia/fc;cd fc;pip3 install .  --no-deps --global-option=build --global-option='--executable=/usr/bin/env python'
 
 # Get dependencies for Jupyter
 RUN pip3 install \
