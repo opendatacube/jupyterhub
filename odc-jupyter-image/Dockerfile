@@ -32,7 +32,7 @@ RUN pip3 install \
     rasterstats \
     https://github.com/Kirill888/wk-misc/releases/download/v1.0/kk_dtools-1-py3-none-any.whl \
     numexpr \
-    cligj \
+    cligj  --upgrade \
     && rm -rf $HOME/.cache/pip
 
 RUN pip3 install --index-url https://packages.dea.gadevs.ga/ wofs 
