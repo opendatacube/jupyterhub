@@ -25,7 +25,7 @@ RUN pip3 install \
     fiona \
     ipyleaflet \
     geopy \
-    dask>=1.2.2 \
+    dask==1.2.2 \
     distributed \
     graphviz \
     plotly \
