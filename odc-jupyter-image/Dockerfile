@@ -14,6 +14,8 @@ RUN pip3 install --upgrade pip
 
 RUN cd /tmp;git clone https://github.com/GeoscienceAustralia/fc;cd fc;pip3 install .  --no-deps --global-option=build --global-option='--executable=/usr/bin/env python'
 
+RUN pip3 install --index-url https://packages.dea.gadevs.ga/ wofs
+
 # Get dependencies for Jupyter
 RUN pip3 install \
     tornado \
