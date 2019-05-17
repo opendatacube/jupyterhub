@@ -4,6 +4,7 @@ RUN apt-get update && apt-get install -y \
     npm \
     nodejs \
     graphviz \
+    wget \
     rsync
 
 RUN npm install -g configurable-http-proxy
@@ -56,10 +57,6 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
 
 ENV HOME=/home/jovyan
 RUN mkdir -p $HOME && chmod -R 777 $HOME
-
-RUN mkdir -p /home/jovyan/notebooks && chmod -R 777 /home/jovyan/notebooks
-WORKDIR $HOME/notebooks
-COPY compare_products_opensource.ipynb .
 
 WORKDIR $HOME
 USER jovyan
