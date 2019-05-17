@@ -78,7 +78,7 @@ export function activate_custom_menu(app: JupyterLab, mainMenu: IMainMenu, palet
 
   // add to mainMenu
   let menu = Private.createMenu(app);
-  mainMenu.addMenu(menu, {rank: 120});
+  mainMenu.addMenu(menu, {rank: 30});
   return Promise.resolve(void 0);
 }
 
