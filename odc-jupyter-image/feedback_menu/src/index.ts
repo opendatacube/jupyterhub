@@ -29,7 +29,13 @@ export const BookMarks = [
       url: 'https://forms.gle/roRmS3WU2Uj7gsg56',
       description: 'Creating a simple JupyterLab plugin adding BookMark menu',
       target: 'widget'
-  }
+  },
+  {
+    name: 'Go to google forms',
+    url: 'https://forms.gle/roRmS3WU2Uj7gsg56',
+    description: 'Creating a simple JupyterLab plugin adding BookMark menu',
+    target: '_blank'
+}
 ];
 
 export function activate_custom_menu(app: JupyterLab, mainMenu: IMainMenu, palette:
@@ -72,7 +78,7 @@ export function activate_custom_menu(app: JupyterLab, mainMenu: IMainMenu, palet
 
   // add to mainMenu
   let menu = Private.createMenu(app);
-  mainMenu.addMenu(menu, {rank: 80});
+  mainMenu.addMenu(menu, {rank: 120});
   return Promise.resolve(void 0);
 }
 
