@@ -40,6 +40,7 @@ RUN cd /tmp/feedback_menu;jlpm install;jlpm run build
 RUN cd /tmp; jupyter labextension install feedback_menu;jupyter labextension list
 RUN jupyter lab build
 
+
 RUN pip3 install --index-url https://packages.dea.gadevs.ga/ wofs 
 
 RUN pip3 install dask[complete] distributed --upgrade
