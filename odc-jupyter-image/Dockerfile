@@ -35,6 +35,11 @@ RUN pip3 install \
     cligj  --upgrade \
     && rm -rf $HOME/.cache/pip
 
+ADD feedback_menu /tmp/feedback_menu
+RUN cd /tmp/feedback_menu;jlpm install;jlpm run build
+RUN cd /tmp; jupyter labextension install feedback_menu;jupyter labextension list
+RUN jupyter lab build
+
 RUN pip3 install --index-url https://packages.dea.gadevs.ga/ wofs 
 
 RUN pip3 install dask[complete] distributed --upgrade
@@ -64,6 +69,9 @@ RUN useradd -m -s /bin/rbash -N -u $NB_UID $NB_USER && \
 
 ENV HOME=/home/jovyan
 RUN mkdir -p $HOME && chmod -R 777 $HOME
+
+
+
 
 WORKDIR $HOME
 USER jovyan
