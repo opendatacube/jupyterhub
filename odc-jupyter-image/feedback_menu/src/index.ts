@@ -25,8 +25,8 @@ export default extension;
 
 export const BookMarks = [
   {
-      name: 'gmo',
-      url: 'https://www.gmo.jp/en/',
+      name: 'Click to Provide Feedback',
+      url: 'https://forms.gle/roRmS3WU2Uj7gsg56',
       description: 'Creating a simple JupyterLab plugin adding BookMark menu',
       target: 'widget'
   }
@@ -39,7 +39,7 @@ export function activate_custom_menu(app: JupyterLab, mainMenu: IMainMenu, palet
 
   function appendNewCommand(item: any) {
       let iframe: IFrame = null;
-      let command = `BookMark-${item.name}:show`;
+      let command = `Feedback-${item.name}:show`;
       app.commands.addCommand(command, {
 
           label: item.name,
@@ -89,8 +89,8 @@ namespace Private {
 
       const {commands} = app;
       let menu:Menu = new Menu({commands});
-      menu.title.label = 'BookMark';
-      BookMarks.forEach(item => menu.addItem({command: `BookMark-${item.name}:show`}));
+      menu.title.label = 'Feedback';
+      BookMarks.forEach(item => menu.addItem({command: `Feedback-${item.name}:show`}));
 
       return menu;
   }
