@@ -6,7 +6,8 @@ RUN apt-get update && apt-get install -y \
     graphviz \
     rsync \
     nano \
-    gfortran
+    gfortran \
+    nodejs
 
 RUN npm install -g configurable-http-proxy
 
@@ -46,9 +47,23 @@ RUN pip3 install --index-url https://packages.dea.gadevs.ga/ wofs
 RUN pip3 install dask[complete] distributed --upgrade
 
 RUN jupyter labextension install \
-    @jupyterlab/geojson-extension 
+    @jupyter-widgets/jupyterlab-manager \
+    @jupyterlab/geojson-extension \
+    @jupyterlab/git \
+    dask-labextension \
+    jupyter-leaflet \
+    jupyter-matplotlib \
+    jupyterlab_bokeh \
+    nbdime-jupyterlab
 
 RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
+
+RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/aws'
+RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_dtools&subdirectory=libs/dtools'
+RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_index&subdirectory=libs/index'
+RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_io&subdirectory=libs/io'
+RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_ppt&subdirectory=libs/ppt'
+RUN pip3 install 'git+https://github.com/opendatacube/dea-proto.git#egg=odc_ui&subdirectory=libs/ui'
 
 RUN mkdir /conf && chmod -R 777 /conf
 ENV DATACUBE_CONFIG_PATH=/conf/datacube.conf
@@ -71,8 +86,8 @@ RUN useradd -m -s /bin/rbash -N -u $NB_UID $NB_USER && \
 ENV HOME=/home/jovyan
 RUN mkdir -p $HOME && chmod -R 777 $HOME
 
-
-
+RUN mkdir -p /tmp/examples && chmod -R 777 /tmp/examples
+ADD odc-sandbox-notebooks /tmp/examples
 
 WORKDIR $HOME
 USER jovyan
