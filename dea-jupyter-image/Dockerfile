@@ -10,7 +10,7 @@ RUN npm install -g configurable-http-proxy
 
 # Get dependencies for Jupyter
 RUN pip3 install \
-    tornado==5.1.1 \
+    tornado \
     jupyter \
     jupyterhub \
     jupyterlab \
@@ -22,12 +22,14 @@ RUN pip3 install \
     fiona \
     ipyleaflet \
     geopy \
-    dask \
-    distributed \
     graphviz \
     rasterstats \
     https://github.com/Kirill888/wk-misc/releases/download/v1.0/kk_dtools-1-py3-none-any.whl \
+    numexpr \
+    cligj  --upgrade \
     && rm -rf $HOME/.cache/pip
+
+RUN pip3 install dask[complete] distributed --upgrade
 
 RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
 RUN jupyter labextension install @jupyterlab/geojson-extension

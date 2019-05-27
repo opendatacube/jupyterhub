@@ -10,11 +10,12 @@ jobs:
             cd odc-jupyter-image/
             ls -la
             git submodule update --init --recursive
-            cd odc-sandbox-notebooks
+            cd dea-sandbox-notebooks
             ls -la
             cd ..
-            docker build -t crcsi/odc-juypter-image:$CIRCLE_BRANCH-$CIRCLE_SHA1 .
-            docker push crcsi/odc-juypter-image:$CIRCLE_BRANCH-$CIRCLE_SHA1 
+            docker build -t crcsi/dea-juypter-image:$CIRCLE_BRANCH-$CIRCLE_SHA1 -t crcsi/dea-juypter-image:latest .
+            docker push crcsi/dea-juypter-image:$CIRCLE_BRANCH-$CIRCLE_SHA1 
+            docker push crcsi/dea-juypter-image:latest 
 
   build-dask:
     machine: true
