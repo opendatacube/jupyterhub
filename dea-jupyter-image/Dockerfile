@@ -63,6 +63,7 @@ RUN jupyter labextension install @jupyterlab/geojson-extension
 RUN mkdir -p /tmp/code
 ADD start-notebook-with-efs.sh /tmp/code/start-notebook-with-efs.sh
 RUN mv /tmp/code/start-notebook-with-efs.sh /usr/local/bin/start-notebook-with-efs.sh
+RUN chmod 777 /usr/local/bin/start-notebook-with-efs.sh
 CMD ["start-notebook-with-efs.sh"]
 # Switch back to jovyan to avoid accidental container runs as root
 
