@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y \
     nodejs \
     graphviz \
     proj-bin \
-    libgeos++-dev \
+    libproj-dev \
     rsync
 
 RUN npm install -g configurable-http-proxy
@@ -28,6 +28,7 @@ RUN pip3 install \
     rasterstats \
     geoviews \
     holoviews \
+    cartopy \
     param \
     datashader \
     https://github.com/Kirill888/wk-misc/releases/download/v1.0/kk_dtools-1-py3-none-any.whl \
