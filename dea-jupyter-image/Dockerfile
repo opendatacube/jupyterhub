@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     nodejs \
     graphviz \
     proj-bin \
+    libgeos++-dev \
     rsync
 
 RUN npm install -g configurable-http-proxy
