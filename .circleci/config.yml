@@ -7,15 +7,14 @@ jobs:
       - run: 
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            cd dea-jupyter-image/
+            cd ga-sandbox-jupyter-image/
             #ls -la
             #git submodule update --init --recursive
             #cd dea-sandbox-notebooks
             #ls -la
             #cd ..
-            docker build -t crcsi/dea-juypter-image:$CIRCLE_BRANCH-$CIRCLE_SHA1 -t crcsi/dea-juypter-image:latest .
-            docker push crcsi/dea-juypter-image:$CIRCLE_BRANCH-$CIRCLE_SHA1 
-            docker push crcsi/dea-juypter-image:latest 
+            docker build -t crcsi/ga-sandbox-juypter-image:latest .
+            docker push crcsi/ga-sandbox-juypter-image:latest 
 
   build-dask:
     machine: true
