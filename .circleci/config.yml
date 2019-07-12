@@ -13,8 +13,8 @@ jobs:
             #cd dea-sandbox-notebooks
             #ls -la
             #cd ..
-            docker build -t crcsi/ga-sandbox-juypter-image:latest .
-            docker push crcsi/ga-sandbox-juypter-image:latest 
+            docker build -t crcsi/ga-sandbox-jupyter-image:latest .
+            docker push crcsi/ga-sandbox-jupyter-image:latest 
 
   build-dask:
     machine: true
