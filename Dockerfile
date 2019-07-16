@@ -4,7 +4,8 @@ RUN apt-get update && apt-get install -y \
     npm \
     nodejs \
     graphviz \
-    wget \
+    proj-bin \
+    libproj-dev \
     rsync
 
 RUN npm install -g configurable-http-proxy
@@ -14,7 +15,7 @@ RUN pip3 install --upgrade pip \
     
 # Get dependencies for Jupyter
 RUN pip3 install \
-    tornado==5.1.1 \
+    tornado \
     jupyter \
     jupyterhub \
     jupyterlab \
@@ -26,15 +27,20 @@ RUN pip3 install \
     fiona \
     ipyleaflet \
     geopy \
-    dask==1.2.2 \
-    distributed \
     graphviz \
-    plotly \
+    rasterstats \
+    geoviews \
+    holoviews \
+    cartopy \
+    param \
+    datashader \
     https://github.com/Kirill888/wk-misc/releases/download/v1.0/kk_dtools-1-py3-none-any.whl \
+    numexpr \
+    cligj  --upgrade \
     && rm -rf $HOME/.cache/pip
 
 RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
-
+RUN jupyter labextension install @jupyterlab/geojson-extension
 RUN mkdir /conf && chmod -R 777 /conf
 ENV DATACUBE_CONFIG_PATH=/conf/datacube.conf
 
