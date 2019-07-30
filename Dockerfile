@@ -6,7 +6,15 @@ RUN apt-get update && apt-get install -y \
     graphviz \
     proj-bin \
     libproj-dev \
-    rsync
+    rsync \
+# developer convenience
+    less \
+    wget \
+    curl \
+    vim \
+    tmux \
+    htop \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g configurable-http-proxy
 
