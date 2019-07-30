@@ -44,7 +44,6 @@ RUN pip3 install \
     cartopy \
     param \
     datashader \
-    https://github.com/Kirill888/wk-misc/releases/download/v1.0/kk_dtools-1-py3-none-any.whl \
     numexpr \
     cligj  --upgrade \
     && rm -rf $HOME/.cache/pip
@@ -59,6 +58,20 @@ RUN echo "Adding jupyter lab extensions" \
 && jupyter labextension install --no-build jupyter-matplotlib \
 && jupyter labextension install --no-build jupyterlab_bokeh \
 && jupyter lab build
+
+RUN echo Installing dea-proto libs \
+&& pip3 install --no-cache -U 'aiobotocore[boto3]' \
+&& pip3 install --no-cache \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_ui&subdirectory=libs/ui' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_index&subdirectory=libs/index' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/aws' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_geom&subdirectory=libs/geom' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_io&subdirectory=libs/io' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aio&subdirectory=libs/aio' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_ppt&subdirectory=libs/ppt' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_dscache&subdirectory=libs/dscache' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_dtools&subdirectory=libs/dtools' \
+&& rm -rf $HOME/.cache/pip
 
 RUN mkdir /conf && chmod -R 777 /conf
 ENV DATACUBE_CONFIG_PATH=/conf/datacube.conf
