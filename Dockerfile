@@ -19,14 +19,16 @@ RUN apt-get update && apt-get install -y \
 RUN npm install -g configurable-http-proxy
 
 RUN pip3 install --upgrade pip \
+    && hash -r \
     && rm -rf $HOME/.cache/pip
-    
+
 # Get dependencies for Jupyter
 RUN pip3 install \
     tornado \
     jupyter \
     jupyterhub \
     jupyterlab \
+    jupyter-server-proxy \
     matplotlib \
     folium \
     nbgitpuller \
@@ -48,7 +50,16 @@ RUN pip3 install \
     && rm -rf $HOME/.cache/pip
 
 RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
-RUN jupyter labextension install @jupyterlab/geojson-extension
+
+RUN echo "Adding jupyter lab extensions" \
+&& jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager \
+&& jupyter labextension install --no-build @jupyterlab/geojson-extension \
+&& jupyter labextension install --no-build jupyter-leaflet \
+&& jupyter labextension install --no-build dask-labextension \
+&& jupyter labextension install --no-build jupyter-matplotlib \
+&& jupyter labextension install --no-build jupyterlab_bokeh \
+&& jupyter lab build
+
 RUN mkdir /conf && chmod -R 777 /conf
 ENV DATACUBE_CONFIG_PATH=/conf/datacube.conf
 
