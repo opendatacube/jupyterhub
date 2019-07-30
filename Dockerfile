@@ -6,19 +6,29 @@ RUN apt-get update && apt-get install -y \
     graphviz \
     proj-bin \
     libproj-dev \
-    rsync
+    rsync \
+# developer convenience
+    less \
+    wget \
+    curl \
+    vim \
+    tmux \
+    htop \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g configurable-http-proxy
 
 RUN pip3 install --upgrade pip \
+    && hash -r \
     && rm -rf $HOME/.cache/pip
-    
+
 # Get dependencies for Jupyter
 RUN pip3 install \
     tornado \
     jupyter \
     jupyterhub \
     jupyterlab \
+    jupyter-server-proxy \
     matplotlib \
     folium \
     nbgitpuller \
@@ -34,13 +44,35 @@ RUN pip3 install \
     cartopy \
     param \
     datashader \
-    https://github.com/Kirill888/wk-misc/releases/download/v1.0/kk_dtools-1-py3-none-any.whl \
     numexpr \
     cligj  --upgrade \
     && rm -rf $HOME/.cache/pip
 
 RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
-RUN jupyter labextension install @jupyterlab/geojson-extension
+
+RUN echo "Adding jupyter lab extensions" \
+&& jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager \
+&& jupyter labextension install --no-build @jupyterlab/geojson-extension \
+&& jupyter labextension install --no-build jupyter-leaflet \
+&& jupyter labextension install --no-build dask-labextension \
+&& jupyter labextension install --no-build jupyter-matplotlib \
+&& jupyter labextension install --no-build jupyterlab_bokeh \
+&& jupyter lab build
+
+RUN echo Installing dea-proto libs \
+&& pip3 install --no-cache -U 'aiobotocore[boto3]' \
+&& pip3 install --no-cache \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_ui&subdirectory=libs/ui' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_index&subdirectory=libs/index' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/aws' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_geom&subdirectory=libs/geom' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_io&subdirectory=libs/io' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aio&subdirectory=libs/aio' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_ppt&subdirectory=libs/ppt' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_dscache&subdirectory=libs/dscache' \
+'git+https://github.com/opendatacube/dea-proto.git#egg=odc_dtools&subdirectory=libs/dtools' \
+&& rm -rf $HOME/.cache/pip
+
 RUN mkdir /conf && chmod -R 777 /conf
 ENV DATACUBE_CONFIG_PATH=/conf/datacube.conf
 
