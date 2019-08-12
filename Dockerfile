@@ -92,11 +92,12 @@ ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook
 RUN chmod +x /usr/local/bin/fix-permissions
 # Create user with UID=1000 and in the 'users' group
 # and make sure these dirs are writable by the `users` group.
-RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
-   chmod g+w /etc/passwd /etc/group && \
-   fix-permissions $HOME
+RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER \
+   && chmod g+w /etc/passwd /etc/group \
+   && fix-permissions $HOME
 
 ENV HOME=/home/jovyan
+ENV SHELL="bash"
 ENV PATH="$HOME/.local/bin:$PATH"
 RUN mkdir -p $HOME && chmod -R 777 $HOME
 
