@@ -14,8 +14,14 @@ RUN apt-get update && apt-get install -y \
     vim \
     tmux \
     htop \
+    fish \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Tini
+RUN curl -s -L -O https://github.com/krallin/tini/releases/download/v0.18.0/tini \
+&& echo "12d20136605531b09a2c2dac02ccee85e1b874eb322ef6baf7561cd93f93c855 *tini" | sha256sum -c - \
+&& install -m 755 tini /bin/tini \
+&& rm tini
 
 RUN pip3 install --upgrade pip \
     && hash -r \
@@ -93,12 +99,6 @@ RUN chmod +x /usr/local/bin/fix-permissions
 RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER \
    && chmod g+w /etc/passwd /etc/group \
    && fix-permissions $HOME
-
-# Install Tini
-RUN curl -s -L -O https://github.com/krallin/tini/releases/download/v0.18.0/tini \
-&& echo "12d20136605531b09a2c2dac02ccee85e1b874eb322ef6baf7561cd93f93c855 *tini" | sha256sum -c - \
-&& install -m 755 tini /bin/tini \
-&& rm tini
 
 ENV HOME=/home/jovyan
 ENV SHELL="bash"
