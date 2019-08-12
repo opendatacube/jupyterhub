@@ -97,6 +97,7 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
    fix-permissions $HOME
 
 ENV HOME=/home/jovyan
+ENV PATH="$HOME/.local/bin:$PATH"
 RUN mkdir -p $HOME && chmod -R 777 $HOME
 
 WORKDIR $HOME
