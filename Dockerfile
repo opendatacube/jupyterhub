@@ -16,7 +16,6 @@ RUN apt-get update && apt-get install -y \
     htop \
     && rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g configurable-http-proxy
 
 RUN pip3 install --upgrade pip \
     && hash -r \
@@ -26,7 +25,6 @@ RUN pip3 install --upgrade pip \
 RUN pip3 install \
     tornado \
     jupyter \
-    jupyterhub \
     jupyterlab \
     jupyter-server-proxy \
     dask_labextension \
@@ -107,7 +105,9 @@ ENV SHELL="bash"
 ENV PATH="$HOME/.local/bin:$PATH"
 RUN mkdir -p $HOME && chmod -R 777 $HOME
 
+EXPOSE 9988
+
 WORKDIR $HOME
 USER jovyan
 
-CMD ["/bin/tini", "-s", "--", "jupyterhub", "--ip=0.0.0.0"]
+CMD ["/bin/tini", "-s", "--", "jupyter", "lab", "--ip=0.0.0.0", "--port 9988"]
