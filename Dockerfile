@@ -29,6 +29,7 @@ RUN pip3 install \
     jupyterhub \
     jupyterlab \
     jupyter-server-proxy \
+    dask_labextension \
     nbdime \
     matplotlib \
     folium \
