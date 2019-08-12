@@ -61,16 +61,16 @@ RUN echo "Adding jupyter lab extensions" \
 
 RUN echo Installing dea-proto libs \
 && pip3 install --no-cache -U 'aiobotocore[boto3]' \
-&& pip3 install --no-cache \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_ui&subdirectory=libs/ui' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_index&subdirectory=libs/index' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/aws' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_geom&subdirectory=libs/geom' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_io&subdirectory=libs/io' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aio&subdirectory=libs/aio' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_ppt&subdirectory=libs/ppt' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_dscache&subdirectory=libs/dscache' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_dtools&subdirectory=libs/dtools' \
+&& pip3 install --no-cache --extra-index-url="https://packages.dea.gadevs.ga" \
+odc_ui \
+odc_index \
+odc_aws \
+odc_geom \
+odc_io \
+odc_aio \
+odc_ppt \
+odc_dscache \
+odc_dtools \
 && rm -rf $HOME/.cache/pip
 
 RUN mkdir /conf && chmod -R 777 /conf
