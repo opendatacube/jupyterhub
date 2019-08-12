@@ -96,6 +96,12 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER \
    && chmod g+w /etc/passwd /etc/group \
    && fix-permissions $HOME
 
+# Install Tini
+RUN curl -s -L -O https://github.com/krallin/tini/releases/download/v0.18.0/tini \
+&& echo "12d20136605531b09a2c2dac02ccee85e1b874eb322ef6baf7561cd93f93c855 *tini" | sha256sum -c - \
+&& install -m 755 tini /bin/tini \
+&& rm tini
+
 ENV HOME=/home/jovyan
 ENV SHELL="bash"
 ENV PATH="$HOME/.local/bin:$PATH"
@@ -104,4 +110,4 @@ RUN mkdir -p $HOME && chmod -R 777 $HOME
 WORKDIR $HOME
 USER jovyan
 
-CMD ["jupyterhub", "--ip=0.0.0.0"]
+CMD ["/bin/tini", "-s", "--", "jupyterhub", "--ip=0.0.0.0"]
