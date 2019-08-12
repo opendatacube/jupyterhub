@@ -110,4 +110,9 @@ EXPOSE 9988
 WORKDIR $HOME
 USER jovyan
 
-CMD ["/bin/tini", "-s", "--", "jupyter", "lab", "--ip=0.0.0.0", "--port 9988"]
+ENTRYPOINT ["/bin/tini", "-s", "--", "docker-entrypoint.sh"]
+
+CMD ["jupyter", "lab", \
+"--ip=0.0.0.0", \
+"--port=9988", \
+"--no-browser"]
