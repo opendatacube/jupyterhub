@@ -103,4 +103,4 @@ RUN mkdir -p $HOME && chmod -R 777 $HOME
 WORKDIR $HOME
 USER jovyan
 
-CMD ["jupyterhub", "--ip=\"*\""]
+CMD ["jupyterhub", "--ip=0.0.0.0"]
