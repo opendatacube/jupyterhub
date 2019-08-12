@@ -29,6 +29,7 @@ RUN pip3 install \
     jupyterhub \
     jupyterlab \
     jupyter-server-proxy \
+    nbdime \
     matplotlib \
     folium \
     nbgitpuller \
@@ -57,6 +58,7 @@ RUN echo "Adding jupyter lab extensions" \
 && jupyter labextension install --no-build dask-labextension \
 && jupyter labextension install --no-build jupyter-matplotlib \
 && jupyter labextension install --no-build jupyterlab_bokeh \
+&& jupyter labextension install --no-build nbdime-jupyterlab \
 && jupyter lab build
 
 RUN echo Installing dea-proto libs \
