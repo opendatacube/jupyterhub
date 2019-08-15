@@ -31,6 +31,7 @@ RUN pip3 install --upgrade pip \
 RUN pip3 install \
     tornado \
     jupyter \
+    jupyterhub \
     jupyterlab \
     jupyter-server-proxy \
     dask_labextension \
