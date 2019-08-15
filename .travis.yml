@@ -12,9 +12,10 @@ script:
 
 deploy:
   provider: script
-  script: bash travis/deploy.sh latest
+  script: bash travis/deploy.sh
   on:
-    branch: master
+    all_branches: true
+    condition: ${TRAVIS_BRANCH} == master || ${TRAVIS_TAG} = ${TRAVIS_BRANCH}
     repo: opendatacube/jupyterhub
     type: push
 
