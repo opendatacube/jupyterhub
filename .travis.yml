@@ -17,9 +17,10 @@ env:
 script:
   - echo "Loading cache"
   - ./travis/cache.sh load
+  - docker images
 
   - echo "Build Docker"
-  - docker build --cache-from ${CACHE_IMAGE} -t ${IMAGE} .
+  - docker build --cache-from ${CACHE_IMAGE} -t ${IMAGE} docker/
 
   - echo "Saving cache"
   - ./travis/cache.sh save
