@@ -6,9 +6,23 @@ git:
   depth: 99999
 
 language: minimal
+env:
+  global:
+    - IMAGE_BASE=opendatacube/jupyterhub
+    - IMAGE=${IMAGE_BASE}:_travis
+    - CACHE_IMAGE=cache:latest
+    - CACHE_DIR=$HOME/docker-cache
+    - CACHE_FILE=${CACHE_DIR}/docker.tgz
 
 script:
-  - docker build -t opendatacube/jupyterhub:_travis .
+  - echo "Loading cache"
+  - ./travis/cache.sh load
+
+  - echo "Build Docker"
+  - docker build --cache-from ${CACHE_IMAGE} -t ${IMAGE} .
+
+  - echo "Saving cache"
+  - ./travis/cache.sh save
 
 deploy:
   provider: script
@@ -18,6 +32,10 @@ deploy:
     condition: ${TRAVIS_BRANCH} == master || ${TRAVIS_TAG} = ${TRAVIS_BRANCH}
     repo: opendatacube/jupyterhub
     type: push
+
+cache:
+  directories:
+    - ${CACHE_DIR}
 
 notifications:
   slack:
