@@ -14,9 +14,14 @@ RUN apt-get update && apt-get install -y \
     vim \
     tmux \
     htop \
+    fish \
     && rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g configurable-http-proxy
+# Install Tini
+RUN curl -s -L -O https://github.com/krallin/tini/releases/download/v0.18.0/tini \
+&& echo "12d20136605531b09a2c2dac02ccee85e1b874eb322ef6baf7561cd93f93c855 *tini" | sha256sum -c - \
+&& install -m 755 tini /bin/tini \
+&& rm tini
 
 RUN pip3 install --upgrade pip \
     && hash -r \
@@ -26,9 +31,10 @@ RUN pip3 install --upgrade pip \
 RUN pip3 install \
     tornado \
     jupyter \
-    jupyterhub \
     jupyterlab \
     jupyter-server-proxy \
+    dask_labextension \
+    nbdime \
     matplotlib \
     folium \
     nbgitpuller \
@@ -57,20 +63,21 @@ RUN echo "Adding jupyter lab extensions" \
 && jupyter labextension install --no-build dask-labextension \
 && jupyter labextension install --no-build jupyter-matplotlib \
 && jupyter labextension install --no-build jupyterlab_bokeh \
+&& jupyter labextension install --no-build nbdime-jupyterlab \
 && jupyter lab build
 
 RUN echo Installing dea-proto libs \
 && pip3 install --no-cache -U 'aiobotocore[boto3]' \
-&& pip3 install --no-cache \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_ui&subdirectory=libs/ui' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_index&subdirectory=libs/index' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aws&subdirectory=libs/aws' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_geom&subdirectory=libs/geom' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_io&subdirectory=libs/io' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_aio&subdirectory=libs/aio' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_ppt&subdirectory=libs/ppt' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_dscache&subdirectory=libs/dscache' \
-'git+https://github.com/opendatacube/dea-proto.git#egg=odc_dtools&subdirectory=libs/dtools' \
+&& pip3 install --no-cache --extra-index-url="https://packages.dea.gadevs.ga" \
+odc_ui \
+odc_index \
+odc_aws \
+odc_geom \
+odc_io \
+odc_aio \
+odc_ppt \
+odc_dscache \
+odc_dtools \
 && rm -rf $HOME/.cache/pip
 
 RUN mkdir /conf && chmod -R 777 /conf
@@ -89,14 +96,23 @@ ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook
 RUN chmod +x /usr/local/bin/fix-permissions
 # Create user with UID=1000 and in the 'users' group
 # and make sure these dirs are writable by the `users` group.
-RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
-   chmod g+w /etc/passwd /etc/group && \
-   fix-permissions $HOME
+RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER \
+   && chmod g+w /etc/passwd /etc/group \
+   && fix-permissions $HOME
 
 ENV HOME=/home/jovyan
+ENV SHELL="bash"
+ENV PATH="$HOME/.local/bin:$PATH"
 RUN mkdir -p $HOME && chmod -R 777 $HOME
+
+EXPOSE 9988
 
 WORKDIR $HOME
 USER jovyan
 
-CMD ["jupyterhub", "--ip=\"*\""]
+ENTRYPOINT ["/bin/tini", "-s", "--", "docker-entrypoint.sh"]
+
+CMD ["jupyter", "lab", \
+"--ip=0.0.0.0", \
+"--port=9988", \
+"--no-browser"]
