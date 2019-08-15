@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     libproj-dev \
     rsync \
 # developer convenience
+    gfortran \
     less \
     wget \
     curl \
