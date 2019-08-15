@@ -60,6 +60,7 @@ RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
 RUN echo "Adding jupyter lab extensions" \
 && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager \
 && jupyter labextension install --no-build @jupyterlab/geojson-extension \
+&& jupyter labextension install --no-build @jupyterlab/hub-extension \
 && jupyter labextension install --no-build jupyter-leaflet \
 && jupyter labextension install --no-build dask-labextension \
 && jupyter labextension install --no-build jupyter-matplotlib \
