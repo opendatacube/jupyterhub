@@ -68,8 +68,8 @@ RUN echo "Adding jupyter lab extensions" \
 && jupyter labextension install --no-build nbdime-jupyterlab \
 && jupyter lab build
 
-RUN echo Installing dea-proto libs \
-&& pip3 install --no-cache -U 'aiobotocore[boto3]' \
+RUN echo Installing more libs \
+&& pip3 install --no-cache 'ipympl' \
 && pip3 install --no-cache --extra-index-url="https://packages.dea.gadevs.ga" \
 odc_ui \
 odc_index \
