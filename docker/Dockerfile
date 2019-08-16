@@ -80,6 +80,7 @@ odc_aio \
 odc_ppt \
 odc_dscache \
 odc_dtools \
+otps \
 && rm -rf $HOME/.cache/pip
 
 RUN mkdir /conf && chmod -R 777 /conf
