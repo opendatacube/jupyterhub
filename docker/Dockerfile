@@ -30,19 +30,26 @@ RUN pip3 install --upgrade pip \
 # Get dependencies for Jupyter
 RUN pip3 install \
     tornado \
-    jupyter \
-    jupyterhub \
-    jupyterlab \
-    jupyter-server-proxy \
-    dask_labextension \
-    nbdime \
+    ipympl \
+    jupyter==1.0.0 \
+    jupyterlab==1.0.9 \
+    jupyter-server-proxy==1.1.0 \
+    jupyterhub==1.0.0 \
+    ipyleaflet==0.11.1 \
+    dask-labextension==1.0.3 \
+    nbdime==1.1.0 \
+    jupyterlab_code_formatter==0.5.0 \
+    black \
+    autopep8 \
+    yapf \
+    isort \
+    mypy \
     matplotlib \
     folium \
     nbgitpuller \
     geopandas \
     scikit-image \
     fiona \
-    ipyleaflet \
     geopy \
     graphviz \
     rasterstats \
@@ -55,21 +62,25 @@ RUN pip3 install \
     cligj  --upgrade \
     && rm -rf $HOME/.cache/pip
 
-RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
+RUN jupyter nbextension enable --py --sys-prefix ipyleaflet \
+&& jupyter serverextension enable --py --sys-prefix jupyterlab_code_formatter \
+&& jupyter serverextension list
 
 RUN echo "Adding jupyter lab extensions" \
-&& jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager \
-&& jupyter labextension install --no-build @jupyterlab/geojson-extension \
-&& jupyter labextension install --no-build @jupyterlab/hub-extension \
-&& jupyter labextension install --no-build jupyter-leaflet \
-&& jupyter labextension install --no-build dask-labextension \
-&& jupyter labextension install --no-build jupyter-matplotlib \
-&& jupyter labextension install --no-build jupyterlab_bokeh \
-&& jupyter labextension install --no-build nbdime-jupyterlab \
-&& jupyter lab build
+&& jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager@v1.0.2 \
+&& jupyter labextension install --no-build @jupyterlab/geojson-extension@v1.0.0 \
+&& jupyter labextension install --no-build @jupyterlab/hub-extension@v1.1.0 \
+&& jupyter labextension install --no-build jupyter-leaflet@v0.11.1 \
+&& jupyter labextension install --no-build dask-labextension@v1.0.1 \
+&& jupyter labextension install --no-build jupyter-matplotlib@v0.4.2 \
+&& jupyter labextension install --no-build jupyterlab_bokeh@v1.0.0 \
+&& jupyter labextension install --no-build nbdime-jupyterlab@v1.0.0 \
+&& jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter@v0.5.0 \
+&& jupyter lab build \
+&& jupyter labextension list \
+&& echo "...done"
 
 RUN echo Installing more libs \
-&& pip3 install --no-cache 'ipympl' \
 && pip3 install --no-cache --extra-index-url="https://packages.dea.gadevs.ga" \
 odc_ui \
 odc_index \
@@ -81,14 +92,13 @@ odc_ppt \
 odc_dscache \
 odc_dtools \
 otps \
+&& config_otps \
 && rm -rf $HOME/.cache/pip
 
 RUN mkdir /conf && chmod -R 777 /conf
 ENV DATACUBE_CONFIG_PATH=/conf/datacube.conf
 
 RUN chmod -R 777 /opt/odc
-# Run config file for otps
-RUN config_otps
 
 # Copy some components of configuration of Jupyter from https://github.com/jupyter/docker-stacks/
 # Configure environment
