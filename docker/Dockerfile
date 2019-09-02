@@ -93,14 +93,13 @@ odc_ppt \
 odc_dscache \
 odc_dtools \
 otps \
+&& config_otps \
 && rm -rf $HOME/.cache/pip
 
 RUN mkdir /conf && chmod -R 777 /conf
 ENV DATACUBE_CONFIG_PATH=/conf/datacube.conf
 
 RUN chmod -R 777 /opt/odc
-# Run config file for otps
-RUN config_otps
 
 # Copy some components of configuration of Jupyter from https://github.com/jupyter/docker-stacks/
 # Configure environment
