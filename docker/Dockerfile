@@ -58,15 +58,15 @@ RUN pip3 install \
 RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
 
 RUN echo "Adding jupyter lab extensions" \
-&& jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager \
-&& jupyter labextension install --no-build @jupyterlab/geojson-extension \
-&& jupyter labextension install --no-build @jupyterlab/hub-extension \
-&& jupyter labextension install --no-build jupyter-leaflet \
-&& jupyter labextension install --no-build dask-labextension \
-&& jupyter labextension install --no-build jupyter-matplotlib \
-&& jupyter labextension install --no-build jupyterlab_bokeh \
-&& jupyter labextension install --no-build nbdime-jupyterlab \
-&& jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter \
+&& jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager@v1.0.2 \
+&& jupyter labextension install --no-build @jupyterlab/geojson-extension@v1.0.0 \
+&& jupyter labextension install --no-build @jupyterlab/hub-extension@v1.1.0 \
+&& jupyter labextension install --no-build jupyter-leaflet@v0.11.1 \
+&& jupyter labextension install --no-build dask-labextension@v1.0.1 \
+&& jupyter labextension install --no-build jupyter-matplotlib@v0.4.2 \
+&& jupyter labextension install --no-build jupyterlab_bokeh@v1.0.0 \
+&& jupyter labextension install --no-build nbdime-jupyterlab@v1.0.0 \
+&& jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter@v0.5.0 \
 && jupyter lab build \
 && jupyter labextension list \
 && echo "...done"
