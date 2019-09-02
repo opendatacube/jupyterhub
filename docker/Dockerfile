@@ -30,19 +30,26 @@ RUN pip3 install --upgrade pip \
 # Get dependencies for Jupyter
 RUN pip3 install \
     tornado \
-    jupyter \
-    jupyterhub \
-    jupyterlab \
-    jupyter-server-proxy \
-    dask_labextension \
-    nbdime \
+    ipympl \
+    jupyter==1.0.0 \
+    jupyterlab==1.0.9 \
+    jupyter-server-proxy==1.1.0 \
+    jupyterhub==1.0.0 \
+    ipyleaflet==0.11.1 \
+    dask-labextension==1.0.3 \
+    nbdime==1.1.0 \
+    jupyterlab_code_formatter==0.5.0 \
+    black \
+    autopep8 \
+    yapf \
+    isort \
+    mypy \
     matplotlib \
     folium \
     nbgitpuller \
     geopandas \
     scikit-image \
     fiona \
-    ipyleaflet \
     geopy \
     graphviz \
     rasterstats \
@@ -55,7 +62,9 @@ RUN pip3 install \
     cligj  --upgrade \
     && rm -rf $HOME/.cache/pip
 
-RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
+RUN jupyter nbextension enable --py --sys-prefix ipyleaflet \
+&& jupyter serverextension enable --py --sys-prefix jupyterlab_code_formatter \
+&& jupyter serverextension list
 
 RUN echo "Adding jupyter lab extensions" \
 && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager@v1.0.2 \
@@ -72,16 +81,6 @@ RUN echo "Adding jupyter lab extensions" \
 && echo "...done"
 
 RUN echo Installing more libs \
-&& pip3 install --no-cache \
-ipympl \
-jupyterlab_code_formatter \
-black \
-autopep8 \
-yapf \
-isort \
-mypy \
-&& jupyter serverextension enable --py jupyterlab_code_formatter \
-&& jupyter serverextension list \
 && pip3 install --no-cache --extra-index-url="https://packages.dea.gadevs.ga" \
 odc_ui \
 odc_index \
