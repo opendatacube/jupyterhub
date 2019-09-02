@@ -66,10 +66,22 @@ RUN echo "Adding jupyter lab extensions" \
 && jupyter labextension install --no-build jupyter-matplotlib \
 && jupyter labextension install --no-build jupyterlab_bokeh \
 && jupyter labextension install --no-build nbdime-jupyterlab \
-&& jupyter lab build
+&& jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter \
+&& jupyter lab build \
+&& jupyter labextension list \
+&& echo "...done"
 
 RUN echo Installing more libs \
-&& pip3 install --no-cache 'ipympl' \
+&& pip3 install --no-cache \
+ipympl \
+jupyterlab_code_formatter \
+black \
+autopep8 \
+yapf \
+isort \
+mypy \
+&& jupyter serverextension enable --py jupyterlab_code_formatter \
+&& jupyter serverextension list \
 && pip3 install --no-cache --extra-index-url="https://packages.dea.gadevs.ga" \
 odc_ui \
 odc_index \
