@@ -93,7 +93,7 @@ odc_ppt \
 odc_dscache \
 odc_dtools \
 otps \
-&& config_otps \
+&& (config_otps || echo "Failed to load otps data") \
 && rm -rf $HOME/.cache/pip
 
 RUN mkdir /conf && chmod -R 777 /conf
