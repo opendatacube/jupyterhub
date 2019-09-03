@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     proj-bin \
     libproj-dev \
     rsync \
+    libgsl-dev \
 # developer convenience
     less \
     wget \
