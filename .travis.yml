@@ -16,6 +16,7 @@ jobs:
       script:
         # Change this to build your images, and run your tests
         - docker pull opendatacube/dask:latest
+        - export TAG=$(git describe --tags | awk -F'[-.]' '{if ($4!="" && $5!="") print $1"."$2"."$3+1"-unstable."$4"."$5; else print $1"."$2"."$3;}')
         - docker build --cache-from opendatacube/dask:latest -t opendatacube/dask:$TAG -t opendatacube/dask:latest dask.Dockerfile
         - docker build --cache-from opendatacube/dask:$TAG -t opendatacube/jupyter:$TAG - t opendatacube/jupyter:latest jupyter.Dockerfile
     - stage: build
