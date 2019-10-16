@@ -86,6 +86,7 @@ RUN echo "Adding jupyter lab extensions" \
 
 RUN echo Installing more libs \
 && pip3 install --no-cache --extra-index-url="https://packages.dea.gadevs.ga" \
+datacube_stats \
 odc_ui \
 odc_index \
 odc_aws \
