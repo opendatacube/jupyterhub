@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     proj-bin \
     libproj-dev \
     rsync \
+    ffmpeg \
 # developer convenience
     less \
     wget \
@@ -15,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     tmux \
     htop \
     fish \
+    openssh-client \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Tini
@@ -45,10 +47,12 @@ RUN pip3 install \
     isort \
     mypy \
     matplotlib \
+    seaborn \
     folium \
     nbgitpuller \
     geopandas \
     scikit-image \
+    scikit-learn \
     fiona \
     geopy \
     graphviz \
