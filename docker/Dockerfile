@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     proj-bin \
     libproj-dev \
     rsync \
-    libgsl-dev \
+    ffmpeg \
 # developer convenience
     less \
     wget \
@@ -46,10 +46,12 @@ RUN pip3 install \
     isort \
     mypy \
     matplotlib \
+    seaborn \
     folium \
     nbgitpuller \
     geopandas \
     scikit-image \
+    scikit-learn \
     fiona \
     geopy \
     graphviz \
@@ -83,6 +85,7 @@ RUN echo "Adding jupyter lab extensions" \
 
 RUN echo Installing more libs \
 && pip3 install --no-cache --extra-index-url="https://packages.dea.gadevs.ga" \
+datacube_stats \
 odc_ui \
 odc_index \
 odc_aws \
