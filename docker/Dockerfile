@@ -40,6 +40,7 @@ RUN pip3 install \
     dask-labextension==1.0.3 \
     nbdime==1.1.0 \
     jupyterlab_code_formatter==0.5.0 \
+    cognitojwt==1.1.0 \
     black \
     autopep8 \
     yapf \
