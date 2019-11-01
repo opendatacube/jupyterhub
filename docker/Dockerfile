@@ -56,6 +56,7 @@ RUN pip3 install \
     fiona \
     geopy \
     graphviz \
+    plotly \
     descartes \
     rasterstats \
     geoviews \
