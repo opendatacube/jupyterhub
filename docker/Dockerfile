@@ -76,6 +76,7 @@ RUN echo "Adding jupyter lab extensions" \
 && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager@v1.0.2 \
 && jupyter labextension install --no-build @jupyterlab/geojson-extension@v1.0.0 \
 && jupyter labextension install --no-build @jupyterlab/hub-extension@v1.1.0 \
+&& jupyter labextension install --no-build @jupyterlab/plotly-extension@1.0.0 \
 && jupyter labextension install --no-build jupyter-leaflet@v0.11.1 \
 && jupyter labextension install --no-build dask-labextension@v1.0.1 \
 && jupyter labextension install --no-build jupyter-matplotlib@v0.4.2 \
