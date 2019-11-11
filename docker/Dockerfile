@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     vim \
     tmux \
     htop \
+    sudo \
     fish \
     && rm -rf /var/lib/apt/lists/*
 
