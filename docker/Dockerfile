@@ -70,6 +70,7 @@ RUN pip3 install \
     sidecar==0.3.0 \
     ipyevents==0.7.0 \
     ipycanvas==0.3.4 \
+    line_profiler \
     cligj  --upgrade \
     && rm -rf $HOME/.cache/pip
 
