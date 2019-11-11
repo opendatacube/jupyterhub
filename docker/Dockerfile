@@ -65,6 +65,7 @@ RUN pip3 install \
     param \
     datashader \
     numexpr \
+    numexpr3 \
     jupyter-ui-poll \
     sidecar==0.3.0 \
     ipyevents==0.7.0 \
@@ -95,7 +96,7 @@ RUN echo "Adding jupyter lab extensions" \
 && echo "...done"
 
 RUN echo Installing more libs \
-&& pip3 install --no-cache --extra-index-url="https://packages.dea.gadevs.ga" \
+&& pip3 install --no-cache --extra-index-url="https://packages.dea.ga.gov.au" \
 datacube_stats \
 odc_ui \
 odc_index \
@@ -106,6 +107,8 @@ odc_aio \
 odc_ppt \
 odc_dscache \
 odc_dtools \
+odc_algo \
+hdstats \
 otps \
 && config_otps \
 && rm -rf $HOME/.cache/pip
