@@ -65,6 +65,12 @@ RUN pip3 install \
     param \
     datashader \
     numexpr \
+    numexpr3 \
+    jupyter-ui-poll \
+    sidecar==0.3.0 \
+    ipyevents==0.7.0 \
+    ipycanvas==0.3.4 \
+    line_profiler \
     cligj  --upgrade \
     && rm -rf $HOME/.cache/pip
 
@@ -83,12 +89,15 @@ RUN echo "Adding jupyter lab extensions" \
 && jupyter labextension install --no-build jupyterlab_bokeh@v1.0.0 \
 && jupyter labextension install --no-build nbdime-jupyterlab@v1.0.0 \
 && jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter@v0.5.0 \
+&& jupyter labextension install --no-build @jupyter-widgets/jupyterlab-sidecar@v0.4.0 \
+&& jupyter labextension install --no-build ipyevents@v1.7.0 \
+&& jupyter labextension install --no-build ipycanvas@v0.3.4 \
 && jupyter lab build \
 && jupyter labextension list \
 && echo "...done"
 
 RUN echo Installing more libs \
-&& pip3 install --no-cache --extra-index-url="https://packages.dea.gadevs.ga" \
+&& pip3 install --no-cache --extra-index-url="https://packages.dea.ga.gov.au" \
 datacube_stats \
 odc_ui \
 odc_index \
@@ -99,6 +108,8 @@ odc_aio \
 odc_ppt \
 odc_dscache \
 odc_dtools \
+odc_algo \
+hdstats \
 otps \
 && config_otps \
 && rm -rf $HOME/.cache/pip
