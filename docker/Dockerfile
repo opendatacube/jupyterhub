@@ -134,7 +134,7 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER \
    && chmod g+w /etc/passwd /etc/group \
    && fix-permissions $HOME
 
-ENV HOME=/home/jovyan
+ENV HOME=/home/${NB_USER}
 ENV SHELL="bash"
 ENV PATH="$HOME/.local/bin:$PATH"
 RUN mkdir -p $HOME && chmod -R 777 $HOME
@@ -155,7 +155,7 @@ RUN [ "${WITH_SUDO}" != "yes" ] || { adduser ${NB_USER} sudo \
   && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
   && echo 'Enabled sudo access' }
 
-USER jovyan
+USER ${NB_USER}
 
 ENTRYPOINT ["/bin/tini", "-s", "--", "docker-entrypoint.sh"]
 
