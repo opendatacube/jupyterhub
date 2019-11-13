@@ -10,15 +10,16 @@ env:
   global:
     - IMAGE_BASE=opendatacube/jupyterhub
     - IMAGE=${IMAGE_BASE}:_travis
-    - CACHE_IMAGE=cache:latest
+    - IMAGE_SUDO=${IMAGE_BASE}:_travis_sudo
 
 script:
   - echo "Loading cache from docker hub"
-  - docker pull "${IMAGE_BASE}:latest" && docker tag "${IMAGE_BASE}:latest" "${CACHE_IMAGE}"
+  - docker pull "${IMAGE_BASE}:latest"
   - docker images
 
   - echo "Build Docker"
-  - docker build --cache-from ${CACHE_IMAGE} -t ${IMAGE} docker/
+  - docker build --cache-from "${IMAGE_BASE}:latest" -t ${IMAGE} docker/
+  - docker build --build-arg WITH_SUDO=yes --cache-from "${IMAGE}" -t ${IMAGE_SUDO} docker/
 
 deploy:
   provider: script

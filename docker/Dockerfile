@@ -140,8 +140,21 @@ ENV PATH="$HOME/.local/bin:$PATH"
 RUN mkdir -p $HOME && chmod -R 777 $HOME
 
 EXPOSE 9988
-
 WORKDIR $HOME
+
+# when `--build-arg WITH_SUDO=yes` is passed during docker build
+#  - add ${nb_user} to sudo group
+#  - Allow members of sudo group to run sudo without password
+#
+# NOTE: arg position within Dockerfile is important, don't move it up, having it
+# lower in the file ensures that sudo and non-sudo images share common base.
+# Also can't move it lower than USER directive.
+ARG WITH_SUDO=no
+
+RUN [ "${WITH_SUDO}" != "yes" ] || { adduser ${NB_USER} sudo \
+  && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
+  && echo 'Enabled sudo access' }
+
 USER jovyan
 
 ENTRYPOINT ["/bin/tini", "-s", "--", "docker-entrypoint.sh"]
