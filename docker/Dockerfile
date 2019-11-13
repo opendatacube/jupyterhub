@@ -153,8 +153,7 @@ ARG WITH_SUDO=no
 
 RUN [ "${WITH_SUDO}" != "yes" ] || { adduser ${NB_USER} sudo \
   && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
-  && echo 'Enabled sudo access' \
-}
+  && echo 'Enabled sudo access'; }
 
 USER ${NB_USER}
 
