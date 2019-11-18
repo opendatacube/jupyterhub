@@ -73,7 +73,6 @@ RUN pip3 install \
     line_profiler \
     tensorflow \
     tensorflow-gpu \
-    tf-nightly \
     cligj  --upgrade \
     && rm -rf $HOME/.cache/pip
 
