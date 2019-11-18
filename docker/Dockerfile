@@ -71,6 +71,9 @@ RUN pip3 install \
     ipyevents==0.7.0 \
     ipycanvas==0.3.4 \
     line_profiler \
+    tensorflow \
+    tensorflow-gpu \
+    tf-nightly \
     cligj  --upgrade \
     && rm -rf $HOME/.cache/pip
 
