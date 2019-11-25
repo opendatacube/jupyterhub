@@ -66,6 +66,8 @@ RUN pip3 install \
     datashader \
     numexpr \
     numexpr3 \
+    ruptures \
+    pymannkendall \
     jupyter-ui-poll \
     sidecar==0.3.0 \
     ipyevents==0.7.0 \
