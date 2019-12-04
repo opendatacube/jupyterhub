@@ -76,6 +76,7 @@ RUN pip3 install \
     ipyevents==0.7.0 \
     ipycanvas==0.3.4 \
     line_profiler \
+    ffmpeg-python \
     tensorflow \
     tensorflow-gpu \
     cligj  --upgrade \
