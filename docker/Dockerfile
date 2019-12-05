@@ -1,6 +1,8 @@
 FROM opendatacube/datacube-core
 
 RUN apt-get update && apt-get install -y \
+    libspatialindex-c4v5 \
+    libspatialindex4v5 \
     npm \
     nodejs \
     graphviz \
@@ -55,6 +57,7 @@ RUN pip3 install \
     scikit-learn \
     fiona \
     geopy \
+    rtree \
     graphviz \
     plotly \
     descartes \
@@ -73,6 +76,7 @@ RUN pip3 install \
     ipyevents==0.7.0 \
     ipycanvas==0.3.4 \
     line_profiler \
+    ffmpeg-python \
     tensorflow \
     tensorflow-gpu \
     cligj  --upgrade \
