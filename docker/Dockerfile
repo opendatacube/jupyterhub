@@ -165,7 +165,7 @@ RUN [ "${WITH_SUDO}" != "yes" ] || { adduser ${NB_USER} sudo \
 
 USER ${NB_USER}
 
-ENTRYPOINT ["/bin/tini", "-s", "--", "docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/tini", "-s", "--"]
 
 CMD ["jupyter", "lab", \
 "--ip=0.0.0.0", \
