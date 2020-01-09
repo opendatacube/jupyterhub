@@ -65,6 +65,7 @@ RUN pip3 install \
     geoviews \
     holoviews \
     cartopy \
+    hdmedians \
     param \
     datashader \
     numexpr \
