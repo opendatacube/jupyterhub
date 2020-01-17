@@ -104,7 +104,8 @@ RUN echo "Adding jupyter lab extensions" \
 && jupyter labextension list \
 && echo "...done"
 
-RUN echo Installing more libs \
+
+RUN echo Installing ODC libs \
 && pip3 install --no-cache --extra-index-url="https://packages.dea.ga.gov.au" \
 datacube_stats \
 odc_ui \
@@ -119,8 +120,17 @@ odc_dtools \
 odc_algo \
 hdstats \
 otps \
-&& config_otps \
 && rm -rf $HOME/.cache/pip
+
+# download otps data: want it separate to see image size delta
+RUN config_otps
+
+# Add more libs for incremental docker build here, move them to main section later
+RUN echo Installing more libs \
+  && pip3 install --no-cache \
+  tqdm \
+  ipyfilechooser \
+  && rm -rf $HOME/.cache/pip
 
 RUN mkdir /conf && chmod -R 777 /conf
 ENV DATACUBE_CONFIG_PATH=/conf/datacube.conf
