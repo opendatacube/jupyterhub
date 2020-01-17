@@ -130,6 +130,7 @@ RUN echo Installing more libs \
   && pip3 install --no-cache \
   tqdm \
   ipyfilechooser \
+  pydotplus \
   && rm -rf $HOME/.cache/pip
 
 RUN mkdir /conf && chmod -R 777 /conf
