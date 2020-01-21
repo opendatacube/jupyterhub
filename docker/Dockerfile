@@ -80,6 +80,9 @@ RUN pip3 install \
     tensorflow \
     tensorflow-gpu \
     cligj  --upgrade \
+    tqdm \
+    ipyfilechooser \
+    xarray  --upgrade \
     && rm -rf $HOME/.cache/pip
 
 RUN jupyter nbextension enable --py --sys-prefix ipyleaflet \
