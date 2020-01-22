@@ -142,8 +142,7 @@ RUN chmod -R 777 /opt/odc
 # Configure environment
 ENV NB_USER=jovyan \
    NB_UID=1000 \
-   NB_GID=100 \
-   GDAL_DATA=/usr/share/gdal/2.4/
+   NB_GID=100
 
 ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook/fix-permissions /usr/local/bin/fix-permissions
 RUN chmod +x /usr/local/bin/fix-permissions
@@ -157,6 +156,8 @@ ENV HOME=/home/${NB_USER}
 ENV SHELL="bash"
 ENV PATH="$HOME/.local/bin:$PATH"
 RUN mkdir -p $HOME && chmod -R 777 $HOME
+
+COPY with_gdal_config /usr/local/bin/
 
 EXPOSE 9988
 WORKDIR $HOME
@@ -176,7 +177,7 @@ RUN [ "${WITH_SUDO}" != "yes" ] || { adduser ${NB_USER} sudo \
 
 USER ${NB_USER}
 
-ENTRYPOINT ["/bin/tini", "-s", "--"]
+ENTRYPOINT ["/bin/tini", "-s", "--", "/usr/local/bin/with_gdal_config"]
 
 CMD ["jupyter", "lab", \
 "--ip=0.0.0.0", \
