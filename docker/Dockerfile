@@ -38,7 +38,7 @@ RUN pip3 install \
     jupyter==1.0.0 \
     jupyterlab==1.0.9 \
     jupyter-server-proxy==1.1.0 \
-    jupyterhub==1.0.0 \
+    jupyterhub==0.9.6 \
     ipyleaflet==0.11.1 \
     dask-labextension==1.0.3 \
     nbdime==1.1.0 \
