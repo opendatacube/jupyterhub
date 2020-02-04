@@ -19,6 +19,8 @@ RUN apt-get update && apt-get install -y \
     htop \
     sudo \
     fish \
+    libfftw3-dev \
+    liblapack-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Tini
@@ -81,6 +83,13 @@ RUN pip3 install \
     tensorflow \
     tensorflow-gpu \
     cligj  --upgrade \
+    pyqt5 \
+    Pillow \
+    cython \
+    && rm -rf $HOME/.cache/pip
+
+RUN export DISPLAY=0:0 && pip3 install \
+    git+https://github.com/whatnick/PyRAT \
     && rm -rf $HOME/.cache/pip
 
 RUN jupyter nbextension enable --py --sys-prefix ipyleaflet \
