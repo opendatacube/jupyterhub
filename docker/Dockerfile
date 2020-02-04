@@ -88,10 +88,6 @@ RUN pip3 install \
     cython \
     && rm -rf $HOME/.cache/pip
 
-RUN export DISPLAY=0:0 && pip3 install \
-    git+https://github.com/whatnick/PyRAT \
-    && rm -rf $HOME/.cache/pip
-
 RUN jupyter nbextension enable --py --sys-prefix ipyleaflet \
 && jupyter serverextension enable --py --sys-prefix jupyterlab_code_formatter \
 && jupyter serverextension list
