@@ -54,6 +54,7 @@ RUN pip3 install \
     seaborn \
     folium \
     nbgitpuller \
+    nbserverproxy \
     geopandas \
     scikit-image \
     scikit-learn \
@@ -91,6 +92,7 @@ RUN pip3 install \
 
 RUN jupyter nbextension enable --py --sys-prefix ipyleaflet \
 && jupyter serverextension enable --py --sys-prefix jupyterlab_code_formatter \
+&& jupyter serverextension enable --py --sys-prefix nbserverproxy \
 && jupyter serverextension list
 
 RUN echo "Adding jupyter lab extensions" \
