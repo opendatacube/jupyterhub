@@ -40,7 +40,7 @@ RUN pip3 install \
     jupyter==1.0.0 \
     jupyterlab==1.0.9 \
     jupyter-server-proxy==1.1.0 \
-    jupyterhub==0.9.6 \
+    jupyterhub==1.0.0 \
     ipyleaflet==0.11.1 \
     dask-labextension==1.0.3 \
     nbdime==1.1.0 \
@@ -130,7 +130,7 @@ otps \
 && rm -rf $HOME/.cache/pip
 
 # download otps data: want it separate to see image size delta
-RUN config_otps
+# RUN config_otps
 
 # Add more libs for incremental docker build here, move them to main section later
 RUN echo Installing more libs \
