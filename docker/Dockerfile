@@ -129,8 +129,10 @@ hdstats \
 otps \
 && rm -rf $HOME/.cache/pip
 
-# download otps data: want it separate to see image size delta
-# RUN config_otps
+# download otps data
+# TODO: remove this once we have working NFS with tidal data in it
+RUN mkdir -p /var/share/TPX08_atlas_compact/ \
+  && (cd /var/share/TPX08_atlas_compact/ && otps_fetch_data .)
 
 # Add more libs for incremental docker build here, move them to main section later
 RUN echo Installing more libs \
