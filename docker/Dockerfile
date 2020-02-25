@@ -130,7 +130,7 @@ otps \
 && rm -rf $HOME/.cache/pip
 
 # download otps data: want it separate to see image size delta
-RUN config_otps
+# RUN config_otps
 
 # Add more libs for incremental docker build here, move them to main section later
 RUN echo Installing more libs \
