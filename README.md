@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/opendatacube/jupyterhub.svg?branch=master)](https://travis-ci.org/opendatacube/jupyterhub)
 
-# jupyterhub
+# JupyterHub
+
+**Warning: this image needs updating to be compatible with the latest ODC code and our `geobase` image methods**
 
 JupyterHub Docker Image that supports OpenDataCube
 
