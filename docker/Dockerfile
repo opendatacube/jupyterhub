@@ -68,6 +68,7 @@ RUN pip3 install \
     holoviews \
     cartopy \
     hdmedians \
+    datacube-wps \
     param \
     datashader \
     numexpr \
