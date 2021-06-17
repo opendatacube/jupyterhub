@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/opendatacube/jupyterhub.svg?branch=master)](https://travis-ci.org/opendatacube/jupyterhub)
+**This repository is no longer maintained. The DEA Sandbox docker image is now maintained through the [GeoscienceAustralia/dea-sandbox](https://github.com/GeoscienceAustralia/dea-sandbox/) repository.**
 
 # JupyterHub
 
